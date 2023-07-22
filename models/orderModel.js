@@ -29,6 +29,10 @@ const orderSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
+  messages: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

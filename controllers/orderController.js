@@ -57,3 +57,27 @@ exports.setOrderPrice = async (req, res, next) => {
     return sendError(400, err, res);
   }
 };
+
+exports.getOrderChats = async (req, res, next) => {
+  const { orderId } = req.params;
+
+  try {
+    const order = await Order.findOne({ orderId: orderId }).populate(
+      'messages'
+    );
+
+    if (
+      !order.transporter.equals(req.user._id) &&
+      !req.user.orders.includes(order._id)
+    ) {
+      sendError(401, 'Unauthorized', res);
+    }
+
+    return res.status(200).json({
+      success: true,
+      messages: order.messages,
+    });
+  } catch (err) {
+    return sendError(400, err, res);
+  }
+};
