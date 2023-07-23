@@ -1,4 +1,4 @@
-# Frontend for the task of threeway-studios
+# Backend for the task of threeway-studios
 
 ## Prerequisites
 
